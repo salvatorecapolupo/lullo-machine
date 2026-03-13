@@ -7,6 +7,8 @@
 
 <title>Ars Magna — Lullo Machine</title>
 
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 <style>
 
 :root{
@@ -44,13 +46,21 @@ font-size:12px;
 margin-top:6px;
 }
 
-#machine{
+#portrait{
+text-align:center;
+padding:20px 0;
+}
 
-height:85vh;
+#portrait img{
+width:120px;
+filter:contrast(1.2) brightness(1.1);
+}
+
+#machine{
+height:80vh;
 display:flex;
 align-items:center;
 justify-content:center;
-
 }
 
 canvas{
@@ -60,29 +70,30 @@ touch-action:none;
 }
 
 #result{
-
 text-align:center;
 padding:30px 20px;
 border-top:1px solid var(--greenSoft);
 border-bottom:1px solid var(--greenSoft);
-
 }
 
 #letters{
-
 letter-spacing:10px;
-font-size:20px;
+font-size:22px;
 margin-bottom:10px;
-
 }
 
 #phrase{
-
-font-size:40px;
+font-size:42px;
 font-weight:700;
 max-width:900px;
 margin:auto;
+}
 
+#math{
+text-align:center;
+padding:20px;
+color:var(--greenSoft);
+font-size:18px;
 }
 
 #help{
@@ -105,13 +116,13 @@ color:var(--greenSoft);
 
 </header>
 
+<div id="portrait">
+<img src="500px-Ramon_Llull.png" alt="Ramon Llull">
+</div>
 
 <section id="machine">
-
 <canvas id="c"></canvas>
-
 </section>
-
 
 <section id="result">
 
@@ -121,11 +132,18 @@ color:var(--greenSoft);
 
 </section>
 
+<div id="math">
+
+\[
+9 \times 9 \times 9 = 9^3 = 729
+\]
+
+propositiones possibiles
+
+</div>
 
 <div id="help">
-
 ruota i dischi per generare una proposizione
-
 </div>
 
 
@@ -144,15 +162,15 @@ const dignita=[
 ]
 
 const relazioni=[
-"Differisce da",
-"Concorda con",
-"È contraria a",
-"È principio di",
-"È mezzo tra",
-"È fine di",
-"È maggiore di",
-"È uguale a",
-"È minore di"
+"differisce da",
+"concorda con",
+"è contraria a",
+"è principio di",
+"è mezzo tra",
+"è fine di",
+"è maggiore di",
+"è uguale a",
+"è minore di"
 ]
 
 const soggetti=[
@@ -199,6 +217,8 @@ for(let d=0;d<3;d++){
 let r=W*rings[d]
 let rin=r-W*0.11
 
+const activeIndex=getIndex(ang[d])
+
 if(d===dragging){
 ctx.shadowColor="#00ff88"
 ctx.shadowBlur=25
@@ -218,23 +238,22 @@ ctx.closePath()
 ctx.strokeStyle="#00ff88"
 ctx.stroke()
 
+if(i===activeIndex){
+
+ctx.fillStyle="rgba(0,255,120,0.25)"
+ctx.fill()
+
+}
+
 let x=CX+Math.cos(am)*(r-(r-rin)/2)
 let y=CY+Math.sin(am)*(r-(r-rin)/2)
-
-ctx.save()
-
-ctx.translate(x,y)
-
-ctx.rotate(-(ang[d]+i*(Math.PI*2/9)))
 
 ctx.fillStyle="#00ff88"
 ctx.font=(W*0.04)+"px monospace"
 ctx.textAlign="center"
 ctx.textBaseline="middle"
 
-ctx.fillText(letters[i],0,0)
-
-ctx.restore()
+ctx.fillText(letters[i],x,y)
 
 }
 
@@ -267,9 +286,7 @@ ctx.fillText("A",CX,CY)
 
 
 function angle(x,y){
-
 return Math.atan2(y-CY,x-CX)
-
 }
 
 
@@ -375,19 +392,19 @@ let i1=getIndex(ang[1])
 let i2=getIndex(ang[2])
 
 document.getElementById("letters").textContent=
-
 letters[i0]+" · "+letters[i1]+" · "+letters[i2]
 
 document.getElementById("phrase").innerHTML=
 
-dignita[i0]+" "+relazioni[i1]+" "+soggetti[i2]
+"<span>"+dignita[i0]+"</span> — "+
+relazioni[i1]+" — "+
+"<span>"+soggetti[i2]+"</span>"
 
 }
 
 
 
 update()
-
 draw()
 
 </script>
