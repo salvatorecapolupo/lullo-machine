@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ars Magna — Raimondo Lullo</title>
+
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+ --green:#00ff88;
+ --green-dim:#00aa55;
+ --bg:#000000;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+ background:#000;
+ color:var(--green);
+ font-family:'JetBrains Mono',monospace;
+ line-height:1.4;
+}
+
+/* HEADER */
+
+#hdr{
+ text-align:center;
+ padding:1rem;
+ border-bottom:1px solid var(--green-dim);
+}
+
+#hdr h1{
+ font-size:1.6rem;
+ letter-spacing:.2em;
+}
+
+#hdr .sub{
+ font-size:.7rem;
+ color:var(--green-dim);
+ margin-top:.2rem;
+}
+
+/* CANVAS AREA */
+
+#mw{
+ width:100%;
+ height:90vh;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+}
+
+canvas{
+ width:100%;
+ height:100%;
+ touch-action:none;
+}
+
+/* PROPOSITION */
+
+#propbox{
+ padding:1rem;
+ border-top:1px solid var(--green-dim);
+ border-bottom:1px solid var(--green-dim);
+}
+
+#letters{
+ font-size:1.8rem;
+ letter-spacing:.3em;
+ margin-bottom:.5rem;
+}
+
+#prop{
+ font-family:'Cormorant Garamond',serif;
+ font-size:1.1rem;
+}
+
+/* SYNOPSIS */
+
+#synopsis{
+ padding:1.2rem;
+}
+
+#synopsis h2{
+ margin-bottom:1rem;
+ font-size:.8rem;
+ letter-spacing:.2em;
+ color:var(--green-dim);
+}
+
+.syn-row{
+ display:grid;
+ grid-template-columns:1fr;
+ gap:1rem;
+}
+
+.syn-col h3{
+ font-size:.7rem;
+ color:var(--green-dim);
+ margin-bottom:.5rem;
+}
+
+.syn-entry{
+ display:flex;
+ gap:.4rem;
+}
+
+.syn-letter{
+ font-weight:bold;
+}
+
+.syn-note{
+ margin-top:1rem;
+ font-size:.8rem;
+ color:var(--green-dim);
+}
+
+@media(min-width:700px){
+
+.syn-row{
+ grid-template-columns:1fr 1fr 1fr;
+}
+
+#mw{
+ height:85vh;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header id="hdr">
+<h1>ARS MAGNA</h1>
+<div class="sub">Raimundus Lullus · Ars Generalis Ultima</div>
+</header>
+
+<div id="mw">
+<canvas id="c"></canvas>
+</div>
+
+<div id="propbox">
+<div id="letters">· · ·</div>
+<div id="prop">Trascina i dischi per generare una proposizione.</div>
+</div>
+
+<section id="synopsis">
+
+<h2>ALPHABETUM</h2>
+
+<div class="syn-row">
+
+<div class="syn-col">
+<h3>Dignità</h3>
+<div class="syn-entry"><span class="syn-letter">B</span>Bontà</div>
+<div class="syn-entry"><span class="syn-letter">C</span>Grandezza</div>
+<div class="syn-entry"><span class="syn-letter">D</span>Eternità</div>
+<div class="syn-entry"><span class="syn-letter">E</span>Potenza</div>
+<div class="syn-entry"><span class="syn-letter">F</span>Saggezza</div>
+<div class="syn-entry"><span class="syn-letter">G</span>Volontà</div>
+<div class="syn-entry"><span class="syn-letter">H</span>Virtù</div>
+<div class="syn-entry"><span class="syn-letter">I</span>Verità</div>
+<div class="syn-entry"><span class="syn-letter">K</span>Gloria</div>
+</div>
+
+<div class="syn-col">
+<h3>Relazioni</h3>
+<div class="syn-entry"><span class="syn-letter">B</span>Differenza</div>
+<div class="syn-entry"><span class="syn-letter">C</span>Concordanza</div>
+<div class="syn-entry"><span class="syn-letter">D</span>Contrarietà</div>
+<div class="syn-entry"><span class="syn-letter">E</span>Principio</div>
+<div class="syn-entry"><span class="syn-letter">F</span>Mezzo</div>
+<div class="syn-entry"><span class="syn-letter">G</span>Fine</div>
+<div class="syn-entry"><span class="syn-letter">H</span>Maggioranza</div>
+<div class="syn-entry"><span class="syn-letter">I</span>Uguaglianza</div>
+<div class="syn-entry"><span class="syn-letter">K</span>Minoranza</div>
+</div>
+
+<div class="syn-col">
+<h3>Soggetti</h3>
+<div class="syn-entry"><span class="syn-letter">B</span>Dio</div>
+<div class="syn-entry"><span class="syn-letter">C</span>Angelo</div>
+<div class="syn-entry"><span class="syn-letter">D</span>Cielo</div>
+<div class="syn-entry"><span class="syn-letter">E</span>Uomo</div>
+<div class="syn-entry"><span class="syn-letter">F</span>Immaginativa</div>
+<div class="syn-entry"><span class="syn-letter">G</span>Sensitivo</div>
+<div class="syn-entry"><span class="syn-letter">H</span>Vegetativo</div>
+<div class="syn-entry"><span class="syn-letter">I</span>Elementale</div>
+<div class="syn-entry"><span class="syn-letter">K</span>Strumentale</div>
+</div>
+
+</div>
+
+<p class="syn-note">
+A designa l'assoluto ineffabile.  
+Le nove lettere B–K generano 729 proposizioni combinatorie.
+</p>
+
+</section>
+
+<script>
+
+const canvas=document.getElementById("c")
+const ctx=canvas.getContext("2d")
+
+let W,CX,CY
+
+function resize(){
+
+W=Math.min(window.innerWidth,window.innerHeight*0.9)
+
+canvas.width=W
+canvas.height=W
+
+CX=W/2
+CY=W/2
+
+draw()
+
+}
+
+window.addEventListener("resize",resize)
+resize()
+
+const letters=["B","C","D","E","F","G","H","I","K"]
+
+let ang=[0,0,0]
+
+function draw(){
+
+ctx.clearRect(0,0,W,W)
+
+for(let d=0;d<3;d++){
+
+let r=W*(0.45-d*0.13)
+let rin=r-W*0.12
+
+for(let i=0;i<9;i++){
+
+let a0=ang[d]+i*(Math.PI*2/9)-Math.PI/2
+let a1=a0+Math.PI*2/9
+let am=(a0+a1)/2
+
+ctx.beginPath()
+ctx.arc(CX,CY,r,a0,a1)
+ctx.arc(CX,CY,rin,a1,a0,true)
+ctx.closePath()
+
+ctx.strokeStyle="#00ff88"
+ctx.stroke()
+
+let x=CX+Math.cos(am)*(r-(r-rin)/2)
+let y=CY+Math.sin(am)*(r-(r-rin)/2)
+
+ctx.fillStyle="#00ff88"
+ctx.font="bold "+W*0.035+"px JetBrains Mono"
+ctx.textAlign="center"
+ctx.textBaseline="middle"
+ctx.fillText(letters[i],x,y)
+
+}
+
+}
+
+ctx.beginPath()
+ctx.arc(CX,CY,W*0.05,0,Math.PI*2)
+ctx.strokeStyle="#00ff88"
+ctx.stroke()
+
+ctx.fillText("A",CX,CY)
+
+}
+
+let drag=null
+
+function angle(x,y){
+return Math.atan2(y-CY,x-CX)
+}
+
+canvas.addEventListener("touchstart",e=>{
+let t=e.touches[0]
+drag=angle(t.clientX,t.clientY)
+})
+
+canvas.addEventListener("touchmove",e=>{
+if(drag==null)return
+let t=e.touches[0]
+let a=angle(t.clientX,t.clientY)
+ang[0]+=a-drag
+drag=a
+draw()
+})
+
+canvas.addEventListener("touchend",()=>drag=null)
+
+draw()
+
+</script>
+
+</body>
+</html>
