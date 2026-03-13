@@ -1,133 +1,103 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ars Magna — Raimondo Lullo</title>
 
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Ars Magna — Raimondo Lullo</title>
 
 <style>
 
 :root{
- --green:#00ff88;
- --green-dim:#00aa55;
- --bg:#000000;
+--green:#00ff88;
+--green-dim:#008f55;
+--bg:#000;
 }
 
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
 
 body{
- background:#000;
- color:var(--green);
- font-family:'JetBrains Mono',monospace;
- line-height:1.4;
+background:var(--bg);
+color:var(--green);
+font-family:monospace;
+line-height:1.5;
 }
 
-/* HEADER */
-
-#hdr{
- text-align:center;
- padding:1rem;
- border-bottom:1px solid var(--green-dim);
+header{
+padding:20px;
+text-align:center;
+border-bottom:1px solid var(--green-dim);
 }
 
-#hdr h1{
- font-size:1.6rem;
- letter-spacing:.2em;
+header h1{
+letter-spacing:0.2em;
+font-size:22px;
 }
 
-#hdr .sub{
- font-size:.7rem;
- color:var(--green-dim);
- margin-top:.2rem;
+header div{
+color:var(--green-dim);
+font-size:12px;
+margin-top:6px;
 }
 
-/* CANVAS AREA */
-
-#mw{
- width:100%;
- height:90vh;
- display:flex;
- align-items:center;
- justify-content:center;
+#canvasBox{
+height:95vh;
+display:flex;
+align-items:center;
+justify-content:center;
 }
 
 canvas{
- width:100%;
- height:100%;
- touch-action:none;
+touch-action:none;
+width:100%;
+height:100%;
 }
 
-/* PROPOSITION */
-
 #propbox{
- padding:1rem;
- border-top:1px solid var(--green-dim);
- border-bottom:1px solid var(--green-dim);
+padding:20px;
+border-top:1px solid var(--green-dim);
+border-bottom:1px solid var(--green-dim);
 }
 
 #letters{
- font-size:1.8rem;
- letter-spacing:.3em;
- margin-bottom:.5rem;
+font-size:26px;
+letter-spacing:8px;
+margin-bottom:10px;
 }
 
 #prop{
- font-family:'Cormorant Garamond',serif;
- font-size:1.1rem;
+font-size:18px;
 }
 
-/* SYNOPSIS */
-
 #synopsis{
- padding:1.2rem;
+padding:30px;
+max-width:900px;
+margin:auto;
 }
 
 #synopsis h2{
- margin-bottom:1rem;
- font-size:.8rem;
- letter-spacing:.2em;
- color:var(--green-dim);
+color:var(--green-dim);
+margin-bottom:15px;
 }
 
-.syn-row{
- display:grid;
- grid-template-columns:1fr;
- gap:1rem;
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
 }
 
-.syn-col h3{
- font-size:.7rem;
- color:var(--green-dim);
- margin-bottom:.5rem;
+.col h3{
+color:var(--green-dim);
+margin-bottom:10px;
 }
 
-.syn-entry{
- display:flex;
- gap:.4rem;
-}
-
-.syn-letter{
- font-weight:bold;
-}
-
-.syn-note{
- margin-top:1rem;
- font-size:.8rem;
- color:var(--green-dim);
-}
-
-@media(min-width:700px){
-
-.syn-row{
- grid-template-columns:1fr 1fr 1fr;
-}
-
-#mw{
- height:85vh;
-}
-
+.col div{
+margin-bottom:4px;
 }
 
 </style>
@@ -135,12 +105,12 @@ canvas{
 
 <body>
 
-<header id="hdr">
+<header>
 <h1>ARS MAGNA</h1>
-<div class="sub">Raimundus Lullus · Ars Generalis Ultima</div>
+<div>Raimundus Lullus · Ars Generalis Ultima</div>
 </header>
 
-<div id="mw">
+<div id="canvasBox">
 <canvas id="c"></canvas>
 </div>
 
@@ -151,56 +121,50 @@ canvas{
 
 <section id="synopsis">
 
-<h2>ALPHABETUM</h2>
+<h2>Alphabetum</h2>
 
-<div class="syn-row">
+<div class="grid">
 
-<div class="syn-col">
+<div class="col">
 <h3>Dignità</h3>
-<div class="syn-entry"><span class="syn-letter">B</span>Bontà</div>
-<div class="syn-entry"><span class="syn-letter">C</span>Grandezza</div>
-<div class="syn-entry"><span class="syn-letter">D</span>Eternità</div>
-<div class="syn-entry"><span class="syn-letter">E</span>Potenza</div>
-<div class="syn-entry"><span class="syn-letter">F</span>Saggezza</div>
-<div class="syn-entry"><span class="syn-letter">G</span>Volontà</div>
-<div class="syn-entry"><span class="syn-letter">H</span>Virtù</div>
-<div class="syn-entry"><span class="syn-letter">I</span>Verità</div>
-<div class="syn-entry"><span class="syn-letter">K</span>Gloria</div>
+<div>B Bontà</div>
+<div>C Grandezza</div>
+<div>D Eternità</div>
+<div>E Potenza</div>
+<div>F Saggezza</div>
+<div>G Volontà</div>
+<div>H Virtù</div>
+<div>I Verità</div>
+<div>K Gloria</div>
 </div>
 
-<div class="syn-col">
+<div class="col">
 <h3>Relazioni</h3>
-<div class="syn-entry"><span class="syn-letter">B</span>Differenza</div>
-<div class="syn-entry"><span class="syn-letter">C</span>Concordanza</div>
-<div class="syn-entry"><span class="syn-letter">D</span>Contrarietà</div>
-<div class="syn-entry"><span class="syn-letter">E</span>Principio</div>
-<div class="syn-entry"><span class="syn-letter">F</span>Mezzo</div>
-<div class="syn-entry"><span class="syn-letter">G</span>Fine</div>
-<div class="syn-entry"><span class="syn-letter">H</span>Maggioranza</div>
-<div class="syn-entry"><span class="syn-letter">I</span>Uguaglianza</div>
-<div class="syn-entry"><span class="syn-letter">K</span>Minoranza</div>
+<div>B Differenza</div>
+<div>C Concordanza</div>
+<div>D Contrarietà</div>
+<div>E Principio</div>
+<div>F Mezzo</div>
+<div>G Fine</div>
+<div>H Maggioranza</div>
+<div>I Uguaglianza</div>
+<div>K Minoranza</div>
 </div>
 
-<div class="syn-col">
+<div class="col">
 <h3>Soggetti</h3>
-<div class="syn-entry"><span class="syn-letter">B</span>Dio</div>
-<div class="syn-entry"><span class="syn-letter">C</span>Angelo</div>
-<div class="syn-entry"><span class="syn-letter">D</span>Cielo</div>
-<div class="syn-entry"><span class="syn-letter">E</span>Uomo</div>
-<div class="syn-entry"><span class="syn-letter">F</span>Immaginativa</div>
-<div class="syn-entry"><span class="syn-letter">G</span>Sensitivo</div>
-<div class="syn-entry"><span class="syn-letter">H</span>Vegetativo</div>
-<div class="syn-entry"><span class="syn-letter">I</span>Elementale</div>
-<div class="syn-entry"><span class="syn-letter">K</span>Strumentale</div>
+<div>B Dio</div>
+<div>C Angelo</div>
+<div>D Cielo</div>
+<div>E Uomo</div>
+<div>F Immaginativa</div>
+<div>G Sensitivo</div>
+<div>H Vegetativo</div>
+<div>I Elementale</div>
+<div>K Strumentale</div>
 </div>
 
 </div>
-
-<p class="syn-note">
-A designa l'assoluto ineffabile.  
-Le nove lettere B–K generano 729 proposizioni combinatorie.
- <img src=".500px-Ramon_Llull.png" alt="Raimondo Lullo - Foto di pubblico dominio presa da Wikipedia" />
-</p>
 
 </section>
 
@@ -209,13 +173,19 @@ Le nove lettere B–K generano 729 proposizioni combinatorie.
 const canvas=document.getElementById("c")
 const ctx=canvas.getContext("2d")
 
-let W,CX,CY
+let W
+let CX
+let CY
 
-let ang=[0,0,0];
+const letters=["B","C","D","E","F","G","H","I","K"]
+
+let ang=[0,0,0]
+
+const rings=[0.45,0.32,0.19]
 
 function resize(){
 
-W=Math.min(window.innerWidth,window.innerHeight*0.9)
+W=Math.min(window.innerWidth,window.innerHeight*0.95)
 
 canvas.width=W
 canvas.height=W
@@ -228,9 +198,8 @@ draw()
 }
 
 window.addEventListener("resize",resize)
-resize()
 
-const letters=["B","C","D","E","F","G","H","I","K"]
+resize()
 
 function draw(){
 
@@ -238,8 +207,8 @@ ctx.clearRect(0,0,W,W)
 
 for(let d=0;d<3;d++){
 
-let r=W*(0.45-d*0.13)
-let rin=r-W*0.12
+let r=W*rings[d]
+let rin=r-W*0.09
 
 for(let i=0;i<9;i++){
 
@@ -259,9 +228,10 @@ let x=CX+Math.cos(am)*(r-(r-rin)/2)
 let y=CY+Math.sin(am)*(r-(r-rin)/2)
 
 ctx.fillStyle="#00ff88"
-ctx.font="bold "+W*0.035+"px JetBrains Mono"
+ctx.font=(W*0.035)+"px monospace"
 ctx.textAlign="center"
 ctx.textBaseline="middle"
+
 ctx.fillText(letters[i],x,y)
 
 }
@@ -277,27 +247,65 @@ ctx.fillText("A",CX,CY)
 
 }
 
-let drag=null
+let dragging=null
+let lastAngle=0
 
-function angle(x,y){
+function getAngle(x,y){
+
 return Math.atan2(y-CY,x-CX)
+
 }
 
-canvas.addEventListener("touchstart",e=>{
-let t=e.touches[0]
-drag=angle(t.clientX,t.clientY)
+canvas.addEventListener("pointerdown",e=>{
+
+const rect=canvas.getBoundingClientRect()
+
+let x=(e.clientX-rect.left)*(canvas.width/rect.width)
+let y=(e.clientY-rect.top)*(canvas.height/rect.height)
+
+let dx=x-CX
+let dy=y-CY
+let dist=Math.sqrt(dx*dx+dy*dy)
+
+for(let i=0;i<3;i++){
+
+let r=W*rings[i]
+let rin=r-W*0.09
+
+if(dist<r && dist>rin){
+
+dragging=i
+lastAngle=getAngle(x,y)
+
+}
+
+}
+
 })
 
-canvas.addEventListener("touchmove",e=>{
-if(drag==null)return
-let t=e.touches[0]
-let a=angle(t.clientX,t.clientY)
-ang[0]+=a-drag
-drag=a
+canvas.addEventListener("pointermove",e=>{
+
+if(dragging===null) return
+
+const rect=canvas.getBoundingClientRect()
+
+let x=(e.clientX-rect.left)*(canvas.width/rect.width)
+let y=(e.clientY-rect.top)*(canvas.height/rect.height)
+
+let a=getAngle(x,y)
+
+let da=a-lastAngle
+
+ang[dragging]+=da
+
+lastAngle=a
+
 draw()
+
 })
 
-canvas.addEventListener("touchend",()=>drag=null)
+canvas.addEventListener("pointerup",()=>dragging=null)
+canvas.addEventListener("pointerleave",()=>dragging=null)
 
 draw()
 
