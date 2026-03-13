@@ -138,14 +138,173 @@ color:var(--greenSoft);
 9 \times 9 \times 9 = 9^3 = 729
 \]
 
-propositiones possibiles
+frasi generabili in totale. 
 
 </div>
 
 <div id="help">
-ruota i dischi per generare una proposizione
+Tip: ruota i dischi per generare una proposizione!
 </div>
 
+  <section id="didattica" style="max-width:900px;margin:auto;padding:40px 20px;line-height:1.6">
+
+<h2>La macchina combinatoria</h2>
+
+<p>
+Questa applicazione simula la macchina combinatoria ideata nel XIII secolo dal filosofo e teologo
+<strong>Raimondo Lullo</strong> (Ramon Llull). Lullo immaginò una serie di dischi concentrici
+che potevano ruotare per combinare concetti fondamentali della filosofia e della teologia.
+</p>
+
+<p>
+Ogni disco contiene nove elementi. Quando i dischi ruotano, gli elementi allineati sotto
+l'indicatore generano una proposizione logica.
+</p>
+
+<p>
+Con tre dischi da nove elementi ciascuno si ottengono
+<strong>9 × 9 × 9 = 729</strong> combinazioni possibili.
+</p>
+
+</section>
+
+
+
+<section id="lullo" style="max-width:900px;margin:auto;padding:40px 20px;line-height:1.6">
+
+<h2>Raimondo Lullo</h2>
+
+<p>
+Raimondo Lullo (1232–1316) fu un filosofo, teologo e scrittore catalano.
+È considerato uno dei pionieri del pensiero combinatorio e della logica
+applicata alla conoscenza.
+</p>
+
+<p>
+Il suo progetto filosofico più famoso è l'<em>Ars Magna</em>,
+un metodo per generare e dimostrare verità attraverso combinazioni
+di concetti fondamentali.
+</p>
+
+<p>
+Per realizzare questo metodo Lullo progettò diagrammi e macchine
+composte da ruote rotanti. Ruotando le ruote era possibile combinare
+idee e produrre proposizioni che potevano essere discusse,
+analizzate o dimostrate.
+</p>
+
+<p>
+Molti studiosi considerano queste macchine combinatorie
+un lontano antenato dei sistemi logici formali e,
+in senso molto generale, dei moderni sistemi computazionali.
+</p>
+
+</section>
+
+
+
+<section id="significato" style="max-width:900px;margin:auto;padding:40px 20px">
+
+<h2>Significato delle lettere</h2>
+
+<p>
+Nella macchina lulliana i concetti sono rappresentati da lettere.
+La lettera <strong>A</strong> indica il principio centrale,
+cioè <strong>Dio</strong>, origine di tutte le perfezioni.
+Le altre lettere rappresentano le cosiddette "dignità divine".
+</p>
+
+<table style="width:100%;border-collapse:collapse">
+
+<tr style="border-bottom:1px solid #00aa55">
+<th style="text-align:left;padding:6px">Lettera</th>
+<th style="text-align:left;padding:6px">Significato</th>
+</tr>
+
+<tr><td style="padding:6px">A</td><td style="padding:6px">Dio / principio assoluto</td></tr>
+<tr><td style="padding:6px">B</td><td style="padding:6px">Bontà</td></tr>
+<tr><td style="padding:6px">C</td><td style="padding:6px">Grandezza</td></tr>
+<tr><td style="padding:6px">D</td><td style="padding:6px">Eternità</td></tr>
+<tr><td style="padding:6px">E</td><td style="padding:6px">Potenza</td></tr>
+<tr><td style="padding:6px">F</td><td style="padding:6px">Saggezza</td></tr>
+<tr><td style="padding:6px">G</td><td style="padding:6px">Volontà</td></tr>
+<tr><td style="padding:6px">H</td><td style="padding:6px">Virtù</td></tr>
+<tr><td style="padding:6px">I</td><td style="padding:6px">Verità</td></tr>
+<tr><td style="padding:6px">K</td><td style="padding:6px">Gloria</td></tr>
+
+</table>
+
+</section>
+
+
+
+<section id="cpp" style="max-width:900px;margin:auto;padding:40px 20px">
+
+<h2>Simulazione in C++ (versione semplificata)</h2>
+
+<p>
+Questo programma C++ mostra una versione molto semplice della macchina:
+tre array circolari rappresentano i tre dischi. Ruotando gli indici
+si genera una nuova proposizione.
+</p>
+
+<pre style="background:#000;border:1px solid #00aa55;padding:15px;overflow:auto">
+
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+const int N = 9;
+
+string dignita[N] = {
+"Bontà","Grandezza","Eternità","Potenza","Saggezza",
+"Volontà","Virtù","Verità","Gloria"
+};
+
+string relazioni[N] = {
+"differisce da","concorda con","è contraria a",
+"è principio di","è mezzo tra","è fine di",
+"è maggiore di","è uguale a","è minore di"
+};
+
+string soggetti[N] = {
+"Dio","Angelo","Cielo","Uomo",
+"Immaginativa","Sensitivo",
+"Vegetativo","Elementale","Strumentale"
+};
+
+int main() {
+
+int a=0,b=0,c=0;
+
+cout &lt;&lt; "Macchina di Lullo\n";
+
+while(true){
+
+cout &lt;&lt; "\n";
+cout &lt;&lt; dignita[a] &lt;&lt; " "
+     &lt;&lt; relazioni[b] &lt;&lt; " "
+     &lt;&lt; soggetti[c] &lt;&lt; endl;
+
+cout &lt;&lt; "1 ruota disco 1\n";
+cout &lt;&lt; "2 ruota disco 2\n";
+cout &lt;&lt; "3 ruota disco 3\n";
+cout &lt;&lt; "0 esci\n";
+
+int scelta;
+cin &gt;&gt; scelta;
+
+if(scelta==1) a=(a+1)%N;
+if(scelta==2) b=(b+1)%N;
+if(scelta==3) c=(c+1)%N;
+if(scelta==0) break;
+
+}
+
+}
+</pre>
+
+</section>
 
 <script>
 
