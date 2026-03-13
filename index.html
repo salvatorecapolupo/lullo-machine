@@ -5,187 +5,174 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Ars Magna — Raimondo Lullo</title>
+<title>Ars Magna — Lullo Machine</title>
 
 <style>
 
 :root{
 --green:#00ff88;
---green-dim:#008f55;
+--greenSoft:#00aa55;
 --bg:#000;
 }
 
 *{
-box-sizing:border-box;
 margin:0;
 padding:0;
+box-sizing:border-box;
 }
 
 body{
 background:var(--bg);
 color:var(--green);
 font-family:monospace;
-line-height:1.5;
 }
 
 header{
-padding:20px;
 text-align:center;
-border-bottom:1px solid var(--green-dim);
+padding:20px;
+border-bottom:1px solid var(--greenSoft);
 }
 
 header h1{
-letter-spacing:0.2em;
+letter-spacing:0.25em;
 font-size:22px;
 }
 
-header div{
-color:var(--green-dim);
+header p{
+color:var(--greenSoft);
 font-size:12px;
 margin-top:6px;
 }
 
-#canvasBox{
-height:95vh;
+#machine{
+
+height:85vh;
 display:flex;
 align-items:center;
 justify-content:center;
+
 }
 
 canvas{
-touch-action:none;
 width:100%;
 height:100%;
+touch-action:none;
 }
 
-#propbox{
-padding:20px;
-border-top:1px solid var(--green-dim);
-border-bottom:1px solid var(--green-dim);
+#result{
+
+text-align:center;
+padding:30px 20px;
+border-top:1px solid var(--greenSoft);
+border-bottom:1px solid var(--greenSoft);
+
 }
 
 #letters{
-font-size:26px;
-letter-spacing:8px;
+
+letter-spacing:10px;
+font-size:20px;
 margin-bottom:10px;
+
 }
 
-#prop{
-font-size:18px;
-}
+#phrase{
 
-#synopsis{
-padding:30px;
+font-size:40px;
+font-weight:700;
 max-width:900px;
 margin:auto;
+
 }
 
-#synopsis h2{
-color:var(--green-dim);
-margin-bottom:15px;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-gap:20px;
-}
-
-.col h3{
-color:var(--green-dim);
-margin-bottom:10px;
-}
-
-.col div{
-margin-bottom:4px;
+#help{
+text-align:center;
+padding:20px;
+color:var(--greenSoft);
 }
 
 </style>
+
 </head>
 
 <body>
 
 <header>
+
 <h1>ARS MAGNA</h1>
-<div>Raimundus Lullus · Ars Generalis Ultima</div>
+
+<p>Raimundus Lullus · Ars Generalis Ultima</p>
+
 </header>
 
-<div id="canvasBox">
+
+<section id="machine">
+
 <canvas id="c"></canvas>
-</div>
-
-<div id="propbox">
-<div id="letters">· · ·</div>
-<div id="prop">Trascina i dischi per generare una proposizione.</div>
-</div>
-
-<section id="synopsis">
-
-<h2>Alphabetum</h2>
-
-<div class="grid">
-
-<div class="col">
-<h3>Dignità</h3>
-<div>B Bontà</div>
-<div>C Grandezza</div>
-<div>D Eternità</div>
-<div>E Potenza</div>
-<div>F Saggezza</div>
-<div>G Volontà</div>
-<div>H Virtù</div>
-<div>I Verità</div>
-<div>K Gloria</div>
-</div>
-
-<div class="col">
-<h3>Relazioni</h3>
-<div>B Differenza</div>
-<div>C Concordanza</div>
-<div>D Contrarietà</div>
-<div>E Principio</div>
-<div>F Mezzo</div>
-<div>G Fine</div>
-<div>H Maggioranza</div>
-<div>I Uguaglianza</div>
-<div>K Minoranza</div>
-</div>
-
-<div class="col">
-<h3>Soggetti</h3>
-<div>B Dio</div>
-<div>C Angelo</div>
-<div>D Cielo</div>
-<div>E Uomo</div>
-<div>F Immaginativa</div>
-<div>G Sensitivo</div>
-<div>H Vegetativo</div>
-<div>I Elementale</div>
-<div>K Strumentale</div>
-</div>
-
-</div>
 
 </section>
+
+
+<section id="result">
+
+<div id="letters">· · ·</div>
+
+<h1 id="phrase">Trascina i dischi</h1>
+
+</section>
+
+
+<div id="help">
+
+ruota i dischi per generare una proposizione
+
+</div>
+
 
 <script>
 
 const canvas=document.getElementById("c")
 const ctx=canvas.getContext("2d")
 
-let W
-let CX
-let CY
+let W,CX,CY
 
 const letters=["B","C","D","E","F","G","H","I","K"]
 
+const dignita=[
+"Bontà","Grandezza","Eternità","Potenza","Saggezza",
+"Volontà","Virtù","Verità","Gloria"
+]
+
+const relazioni=[
+"Differisce da",
+"Concorda con",
+"È contraria a",
+"È principio di",
+"È mezzo tra",
+"È fine di",
+"È maggiore di",
+"È uguale a",
+"È minore di"
+]
+
+const soggetti=[
+"Dio","Angelo","Cielo","Uomo",
+"Immaginativa","Sensitivo",
+"Vegetativo","Elementale",
+"Strumentale"
+]
+
 let ang=[0,0,0]
 
-const rings=[0.45,0.32,0.19]
+const rings=[0.46,0.33,0.20]
+
+let dragging=null
+let lastAngle=0
+
 
 function resize(){
 
-W=Math.min(window.innerWidth,window.innerHeight*0.95)
+W=Math.min(window.innerWidth,window.innerHeight*0.85)
 
 canvas.width=W
 canvas.height=W
@@ -201,6 +188,8 @@ window.addEventListener("resize",resize)
 
 resize()
 
+
+
 function draw(){
 
 ctx.clearRect(0,0,W,W)
@@ -208,12 +197,17 @@ ctx.clearRect(0,0,W,W)
 for(let d=0;d<3;d++){
 
 let r=W*rings[d]
-let rin=r-W*0.09
+let rin=r-W*0.11
+
+if(d===dragging){
+ctx.shadowColor="#00ff88"
+ctx.shadowBlur=25
+}
 
 for(let i=0;i<9;i++){
 
 let a0=ang[d]+i*(Math.PI*2/9)-Math.PI/2
-let a1=a0+Math.PI*2/9
+let a1=a0+(Math.PI*2/9)
 let am=(a0+a1)/2
 
 ctx.beginPath()
@@ -227,16 +221,39 @@ ctx.stroke()
 let x=CX+Math.cos(am)*(r-(r-rin)/2)
 let y=CY+Math.sin(am)*(r-(r-rin)/2)
 
+ctx.save()
+
+ctx.translate(x,y)
+
+ctx.rotate(-(ang[d]+i*(Math.PI*2/9)))
+
 ctx.fillStyle="#00ff88"
-ctx.font=(W*0.035)+"px monospace"
+ctx.font=(W*0.04)+"px monospace"
 ctx.textAlign="center"
 ctx.textBaseline="middle"
 
-ctx.fillText(letters[i],x,y)
+ctx.fillText(letters[i],0,0)
+
+ctx.restore()
 
 }
 
+ctx.shadowBlur=0
+
 }
+
+/* indicatore */
+
+ctx.beginPath()
+ctx.moveTo(CX,10)
+ctx.lineTo(CX-15,40)
+ctx.lineTo(CX+15,40)
+ctx.closePath()
+
+ctx.fillStyle="#00ff88"
+ctx.fill()
+
+/* centro */
 
 ctx.beginPath()
 ctx.arc(CX,CY,W*0.05,0,Math.PI*2)
@@ -247,14 +264,15 @@ ctx.fillText("A",CX,CY)
 
 }
 
-let dragging=null
-let lastAngle=0
 
-function getAngle(x,y){
+
+function angle(x,y){
 
 return Math.atan2(y-CY,x-CX)
 
 }
+
+
 
 canvas.addEventListener("pointerdown",e=>{
 
@@ -265,17 +283,18 @@ let y=(e.clientY-rect.top)*(canvas.height/rect.height)
 
 let dx=x-CX
 let dy=y-CY
+
 let dist=Math.sqrt(dx*dx+dy*dy)
 
 for(let i=0;i<3;i++){
 
 let r=W*rings[i]
-let rin=r-W*0.09
+let rin=r-W*0.11
 
 if(dist<r && dist>rin){
 
 dragging=i
-lastAngle=getAngle(x,y)
+lastAngle=angle(x,y)
 
 }
 
@@ -283,16 +302,18 @@ lastAngle=getAngle(x,y)
 
 })
 
+
+
 canvas.addEventListener("pointermove",e=>{
 
-if(dragging===null) return
+if(dragging===null)return
 
 const rect=canvas.getBoundingClientRect()
 
 let x=(e.clientX-rect.left)*(canvas.width/rect.width)
 let y=(e.clientY-rect.top)*(canvas.height/rect.height)
 
-let a=getAngle(x,y)
+let a=angle(x,y)
 
 let da=a-lastAngle
 
@@ -304,8 +325,68 @@ draw()
 
 })
 
-canvas.addEventListener("pointerup",()=>dragging=null)
-canvas.addEventListener("pointerleave",()=>dragging=null)
+
+
+canvas.addEventListener("pointerup",()=>{
+
+if(dragging!==null){
+
+snap(dragging)
+update()
+
+}
+
+dragging=null
+
+})
+
+
+
+function snap(d){
+
+let step=Math.PI*2/9
+
+ang[d]=Math.round(ang[d]/step)*step
+
+draw()
+
+}
+
+
+
+function getIndex(a){
+
+let step=Math.PI*2/9
+
+let raw=(-a+Math.PI/2)%(Math.PI*2)
+
+let i=Math.floor(raw/step)
+
+return (i+9)%9
+
+}
+
+
+
+function update(){
+
+let i0=getIndex(ang[0])
+let i1=getIndex(ang[1])
+let i2=getIndex(ang[2])
+
+document.getElementById("letters").textContent=
+
+letters[i0]+" · "+letters[i1]+" · "+letters[i2]
+
+document.getElementById("phrase").innerHTML=
+
+dignita[i0]+" "+relazioni[i1]+" "+soggetti[i2]
+
+}
+
+
+
+update()
 
 draw()
 
